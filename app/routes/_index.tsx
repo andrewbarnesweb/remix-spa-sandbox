@@ -1,32 +1,33 @@
-import type { MetaFunction } from "@remix-run/node";
+import { Link, Outlet } from '@remix-run/react';
 
-export const meta: MetaFunction = () => {
-  return [
-    { title: "New Remix SPA" },
-    { name: "description", content: "Welcome to Remix (SPA Mode)!" },
-  ];
+export const clientLoader = async () => {
+  const response: string = await new Promise((resolve) => {
+    setTimeout(() => {
+      resolve(Math.random().toString());
+    }, 1000);
+  });
+
+  return { response };
 };
 
-export default function Index() {
+function Test() {
   return (
-    <div style={{ fontFamily: "system-ui, sans-serif", lineHeight: "1.8" }}>
-      <h1>Welcome to Remix (SPA Mode)</h1>
-      <ul>
+    <div className="m-6">
+      <ul className="mb-4 flex gap-2">
         <li>
-          <a
-            target="_blank"
-            href="https://remix.run/future/spa-mode"
-            rel="noreferrer"
-          >
-            SPA Mode Guide
-          </a>
+          <Link to="/suspense" className="underline hover:underline-offset-2">
+            Suspense
+          </Link>
         </li>
         <li>
-          <a target="_blank" href="https://remix.run/docs" rel="noreferrer">
-            Remix Docs
-          </a>
+          <Link to="/navigation" className="underline hover:underline-offset-2">
+            useNavigation
+          </Link>
         </li>
       </ul>
+      <Outlet />
     </div>
   );
 }
+
+export default Test;
