@@ -5,8 +5,13 @@ function Test() {
     <div className="m-6">
       <ul className="mb-4 flex gap-2">
         <li>
-          <Link to="page" className="underline hover:underline-offset-2">
-            Load page with suspense in it - promise delayed for 2 seconds (try clicking more than once)
+          <Link to="page/one" className="underline hover:underline-offset-2">
+            Page with param (one)
+          </Link>
+        </li>
+        <li>
+          <Link to="page/two" className="underline hover:underline-offset-2">
+            Page with param (two)
           </Link>
         </li>
         <li>

@@ -1,10 +1,11 @@
-import { Await, defer, useLoaderData } from '@remix-run/react';
+import { Await, defer, useLoaderData, useLocation, type ClientLoaderFunctionArgs } from '@remix-run/react';
 import { Suspense } from 'react';
 
-export const clientLoader = async () => {
+export const clientLoader = async ({params}: ClientLoaderFunctionArgs) => {
+  const id = params.id;
   const myPromise = new Promise<string>((resolve) => {
     setTimeout(() => {
-      resolve(Math.random().toString());
+      resolve(Math.random().toString() + id);
     }, 2000);
   });
 
@@ -13,12 +14,13 @@ export const clientLoader = async () => {
 
 function SearchResults() {
   const { myPromise } = useLoaderData<typeof clientLoader>();
+  const location = useLocation();
 
   return (
     <div>
         Show me straight away
         <div>
-            <Suspense fallback={<div>Loading locally</div>}>
+            <Suspense key={location.key} fallback={<div>Loading locally</div>}>
                 <Await resolve={myPromise}>
                     {(randomValue) => (
                     <div>
