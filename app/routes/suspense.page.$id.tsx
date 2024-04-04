@@ -1,6 +1,5 @@
 import {
   Await,
-  defer,
   useLoaderData,
   useLocation,
   type ClientLoaderFunctionArgs,
@@ -25,7 +24,7 @@ export const clientLoader = async ({
     }, 2000);
   });
 
-  return defer({ myPromise });
+  return { myPromise };
 };
 
 function SearchResults() {
